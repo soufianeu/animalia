@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANIMALIA | Premium Pet Care | Produits Naturels 100% Maroc</title>
+  <meta name="description" content="Produits naturels et efficaces pour le bien-être de vos animaux">
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo">
+        <img src="images/logo.png" alt="Animalia">
+        <span>ANIMALIA</span>
+      </a>
+      <a href="https://wa.me/212522508993" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+        <span>Commander via WhatsApp</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="grid">
+          <!-- Product Gallery -->
+          <div class="product-gallery">
+            <div class="gallery-wrapper">
+              <div class="main-image">
+                <img id="mainImage" src="images/Pack_Animalia_Family_bg.jpg" alt="Pack Animalia">
+              </div>
+              <div class="thumbnails">
+                <div class="thumbnail active" onclick="changeImage(0, this)">
+                  <img src="images/Pack_Animalia_Family_bg.jpg" alt="Thumbnail 1">
+                </div>
+                <div class="thumbnail" onclick="changeImage(1, this)">
+                  <img src="images/prod1.jpg" alt="Thumbnail 2">
+                </div>
+                <div class="thumbnail" onclick="changeImage(2, this)">
+                  <img src="images/prod2.jpg" alt="Thumbnail 3">
+                </div>
+                <div class="thumbnail" onclick="changeImage(3, this)">
+                  <img src="images/prod3.jpg" alt="Thumbnail 4">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h1>Pack <span>Animalia</span> Family</h1>
+            <p class="price">239 dh</p>
+            
+            <div class="rating-stock">
+              <div class="stars">
+                <svg viewBox="0 0 512 512"><path d="M510.549,196.024c-3.812-11.726-14.5-19.868-26.82-20.42l-147.935-6.686l-52.09-138.642C279.37,18.739,268.329,11.089,256,11.089c-12.329,0-23.37,7.65-27.704,19.187l-52.089,138.642l-147.935,6.686c-12.321,0.552-23.008,8.694-26.821,20.42c-3.812,11.726,0.052,24.598,9.689,32.283l115.756,92.368L87.542,463.453c-3.27,11.889,1.155,24.554,11.136,31.808c9.985,7.246,23.404,7.548,33.704,0.758L256,414.473l123.617,81.547c10.3,6.789,23.719,6.487,33.704-0.758c9.982-7.245,14.405-19.92,11.131-31.808l-39.347-142.779l115.756-92.368C510.498,220.621,514.362,207.749,510.549,196.024z"/></svg>
+                <svg viewBox="0 0 512 512"><path d="M510.549,196.024c-3.812-11.726-14.5-19.868-26.82-20.42l-147.935-6.686l-52.09-138.642C279.37,18.739,268.329,11.089,256,11.089c-12.329,0-23.37,7.65-27.704,19.187l-52.089,138.642l-147.935,6.686c-12.321,0.552-23.008,8.694-26.821,20.42c-3.812,11.726,0.052,24.598,9.689,32.283l115.756,92.368L87.542,463.453c-3.27,11.889,1.155,24.554,11.136,31.808c9.985,7.246,23.404,7.548,33.704,0.758L256,414.473l123.617,81.547c10.3,6.789,23.719,6.487,33.704-0.758c9.982-7.245,14.405-19.92,11.131-31.808l-39.347-142.779l115.756-92.368C510.498,220.621,514.362,207.749,510.549,196.024z"/></svg>
+                <svg viewBox="0 0 512 512"><path d="M510.549,196.024c-3.812-11.726-14.5-19.868-26.82-20.42l-147.935-6.686l-52.09-138.642C279.37,18.739,268.329,11.089,256,11.089c-12.329,0-23.37,7.65-27.704,19.187l-52.089,138.642l-147.935,6.686c-12.321,0.552-23.008,8.694-26.821,20.42c-3.812,11.726,0.052,24.598,9.689,32.283l115.756,92.368L87.542,463.453c-3.27,11.889,1.155,24.554,11.136,31.808c9.985,7.246,23.404,7.548,33.704,0.758L256,414.473l123.617,81.547c10.3,6.789,23.719,6.487,33.704-0.758c9.982-7.245,14.405-19.92,11.131-31.808l-39.347-142.779l115.756-92.368C510.498,220.621,514.362,207.749,510.549,196.024z"/></svg>
+                <svg viewBox="0 0 512 512"><path d="M510.549,196.024c-3.812-11.726-14.5-19.868-26.82-20.42l-147.935-6.686l-52.09-138.642C279.37,18.739,268.329,11.089,256,11.089c-12.329,0-23.37,7.65-27.704,19.187l-52.089,138.642l-147.935,6.686c-12.321,0.552-23.008,8.694-26.821,20.42c-3.812,11.726,0.052,24.598,9.689,32.283l115.756,92.368L87.542,463.453c-3.27,11.889,1.155,24.554,11.136,31.808c9.985,7.246,23.404,7.548,33.704,0.758L256,414.473l123.617,81.547c10.3,6.789,23.719,6.487,33.704-0.758c9.982-7.245,14.405-19.92,11.131-31.808l-39.347-142.779l115.756-92.368C510.498,220.621,514.362,207.749,510.549,196.024z"/></svg>
+                <svg viewBox="0 0 512 512"><path d="M510.549,196.024c-3.812-11.726-14.5-19.868-26.82-20.42l-147.935-6.686l-52.09-138.642C279.37,18.739,268.329,11.089,256,11.089c-12.329,0-23.37,7.65-27.704,19.187l-52.089,138.642l-147.935,6.686c-12.321,0.552-23.008,8.694-26.821,20.42c-3.812,11.726,0.052,24.598,9.689,32.283l115.756,92.368L87.542,463.453c-3.27,11.889,1.155,24.554,11.136,31.808c9.985,7.246,23.404,7.548,33.704,0.758L256,414.473l123.617,81.547c10.3,6.789,23.719,6.487,33.704-0.758c9.982-7.245,14.405-19.92,11.131-31.808l-39.347-142.779l115.756-92.368C510.498,220.621,514.362,207.749,510.549,196.024z"/></svg>
+              </div>
+              <p class="in-stock">En Stock</p>
+            </div>
+
+            <div class="order-btn-wrapper">
+              <a href="https://wa.me/212522508993?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20le%20pack%20Animalia%20et%20j%E2%80%99aimerais%20avoir%20plus%20d%E2%80%99informations." target="_blank" rel="noopener noreferrer" class="whatsapp-order-btn">
+                <i class="fab fa-whatsapp"></i>
+                Commander le Pack
+              </a>
+            </div>
+
+            <div class="description">
+              <p class="label">Description :</p>
+              <p class="text">Le shampooing ANIMALIA antiparasitaire & démêlant est conçu pour l'hygiène et le soin du pelage des chiens et des chats. Il nettoie en douceur et repousse efficacement les parasites grâce au géraniol d'origine naturelle. Enrichi en huile de jojoba, il nourrit le poil, facilite le brossage et redonne douceur et brillance.</p>
+              <p class="text">Sa formule à base d'aloe vera, de camomille et d'huile essentielle de lavande protège la peau sensible et laisse un parfum frais et naturel. La lotion ANIMALIA antiparasitaire & répulsive protège les oiseaux domestiques contre les poux, les mites et autres parasites.</p>
+              <p class="text">Sa formule légère hydrate et protège la peau et les plumes sans alourdir le plumage. Grâce au géraniol végétal, aux extraits de calendula et de romarin et à la citronnelle, elle apaise, assainit et laisse une senteur douce naturellement répulsive.</p>
+              <p class="text">Le parfum ANIMALIA pour chiens et chats apporte fraîcheur et propreté au pelage tout en respectant la peau sensible. Sa formule légère facilite le brossage, adoucit le poil et laisse un parfum délicat et durable.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pack Components Section -->
+    <section class="pack-section" id="pack">
+      <div class="container">
+        <div class="section-title">
+          <h2>Composants du pack</h2>
+          <div class="center-btn" style="margin-top: 1.25rem;">
+            <a href="https://wa.me/212522508993?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20le%20pack%20Animalia%20et%20j%E2%80%99aimerais%20avoir%20plus%20d%E2%80%99informations." target="_blank" rel="noopener noreferrer" class="whatsapp-btn-large">
+              <i class="fab fa-whatsapp"></i>
+              Commander le Pack à 239 DH
+            </a>
+          </div>
+        </div>
+
+        <!-- Shampooing -->
+        <div class="product-card">
+          <img src="images/prod1i.jpg" alt="Shampooing Antiparasitaire & Démêlant">
+          <div class="content">
+            <h3>Shampooing ANIMALIA</h3>
+            <p><span class="bold">Mode d'emploi :</span> Mouiller entièrement le pelage de l'animal. Appliquer une dose de shampooing (5 à 10 ml selon la taille). Masser délicatement pour bien faire pénétrer, laisser agir 5 minutes, puis rincer abondamment. Renouveler si nécessaire.</p>
+            <p><span class="bold">Précautions d'emploi :</span></p>
+            <ul>
+              <li>Usage externe uniquement.</li>
+              <li>Éviter le contact avec les yeux, les muqueuses et les plaies.</li>
+              <li>Tenir hors de portée des enfants.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Lotion -->
+        <div class="product-card reverse">
+          <img src="images/prod2i.jpg" alt="Lotion Antiparasitaire & Répulsive">
+          <div class="content">
+            <h3>Lotion ANIMALIA</h3>
+            <p><span class="bold">Mode d'emploi :</span> Agiter avant usage. Vaporiser uniformément sur le plumage sec, en évitant les yeux, le bec et les zones sensibles. Masser légèrement pour une meilleure pénétration si nécessaire.</p>
+            <p><span class="bold">Précautions d'emploi :</span></p>
+            <ul>
+              <li>Usage externe uniquement.</li>
+              <li>Éviter le contact avec les yeux et les muqueuses.</li>
+              <li>Tenir hors de portée des enfants.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Parfum -->
+        <div class="product-card">
+          <img src="images/prod3i.jpg" alt="Parfum ANIMALIA">
+          <div class="content">
+            <h3>Parfum ANIMALIA</h3>
+            <p><span class="bold">Parfums disponibles :</span></p>
+            <ul>
+              <li><span class="bold">Coco Vanille</span> : parfum doux et gourmand, mélange subtil de noix de coco et de vanille.</li>
+              <li><span class="bold">Actifs clés</span> : Huile de coco - hydrate et adoucit le pelage, extrait de vanille - parfum naturel et agréable</li>
+              <li><span class="bold">Fruits Rouges</span> : parfum fruité et rafraîchissant, aux notes sucrées de baies rouges.</li>
+              <li><span class="bold">Actifs clés</span> : Extrait de fraise et framboise - apporte éclat et fraîcheur au pelage, glycérine - hydrate et protège.</li>
+              <li><span class="bold">Bonbon</span> : parfum sucré et gourmand, rappelant les douceurs de confiserie.</li>
+              <li><span class="bold">Actifs clés</span> : Extraits de fruits sucrés - parfum naturel et gourmand, huiles végétales douces - nourrissent le pelage.</li>
+            </ul>
+            <p><span class="bold">Mode d'emploi :</span> Agiter avant usage. Vaporiser légèrement sur le pelage sec. Éviter le contact avec les yeux et les muqueuses.</p>
+          </div>
+        </div>
+
+        <div class="center-btn">
+          <a href="https://wa.me/212522508993?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20le%20pack%20Animalia%20et%20j%E2%80%99aimerais%20avoir%20plus%20d%E2%80%99informations." target="_blank" rel="noopener noreferrer" class="whatsapp-btn-large">
+            <i class="fab fa-whatsapp"></i>
+            Commander le Pack à 239 DH
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+      <div class="container">
+        <div class="benefits-header">
+          <p class="subtitle">Les avantages du Pack Animalia</p>
+          <h2>Le choix idéal pour le<span> bien-être de vos animaux</span></h2>
+          <p>Des soins essentiels réunis dans un pack pensé pour la santé, l'hygiène et le confort de vos compagnons.</p>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+                <path d="M20 2v4"></path>
+                <path d="M22 4h-4"></path>
+                <circle cx="4" cy="20" r="2"></circle>
+              </svg>
+            </div>
+            <h3>Soin complet en un seul pack</h3>
+            <p>Tout ce dont vos animaux ont besoin pour être propres, protégés et frais au quotidien.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3>Protection antiparasitaire naturelle</h3>
+            <p>Actifs naturels efficaces contre puces, poux, tiques et parasites.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path>
+              </svg>
+            </div>
+            <h3>Respecte les peaux sensibles</h3>
+            <p>Formules douces, sans agressivité, adaptées aux chiens, chats et oiseaux.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path>
+                <path d="M12 22V12"></path>
+                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                <path d="m7.5 4.27 9 5.15"></path>
+              </svg>
+            </div>
+            <h3>Format économique & pratique</h3>
+            <p>3 produits essentiels réunis dans un seul pack à prix avantageux.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 7h6v6"></path>
+                <path d="m22 7-8.5 8.5-5-5L2 17"></path>
+              </svg>
+            </div>
+            <h3>Résultats visibles rapidement</h3>
+            <p>Pelage plus doux, brillant et une sensation de fraîcheur dès les premières utilisations.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 6v6l4 2"></path>
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+            </div>
+            <h3>Facile à utiliser au quotidien</h3>
+            <p>Des soins simples, rapides et efficaces, sans contrainte.</p>
+          </div>
+        </div>
+
+        <div class="text-center mt-16">
+          <a href="https://wa.me/212522508993" target="_blank" rel="noopener noreferrer" class="whatsapp-btn-large">
+            <i class="fab fa-whatsapp"></i>
+            Commander le Pack à 239 DH
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems-section">
+      <div class="container">
+        <div class="problems-header">
+          <p class="subtitle">Les problèmes courants de vos animaux</p>
+          <h2>Pack <span>Animalia</span> : Solutions Naturelles</h2>
+          <p>Des soins simples, efficaces et rapides pour rendre vos compagnons heureux et en pleine santé.</p>
+        </div>
+
+        <div class="problems-grid">
+          <div class="problem-card">
+            <div class="problem-image">
+              <img src="images/cat-with-shampoo-cleaning.jpg" alt="Pelage terne et emmêlé">
+            </div>
+            <div class="problem-content">
+              <h3>Pelage terne et emmêlé</h3>
+              <p>Le shampooing ANIMALIA nourrit, démêle et apporte douceur, brillance et fraîcheur au pelage dès la première utilisation.</p>
+              <span class="problem-tag">Solution Pack Animalia</span>
+            </div>
+          </div>
+
+          <div class="problem-card">
+            <div class="problem-image">
+              <img src="images/angry-cat.jpg" alt="Parasites et irritations">
+            </div>
+            <div class="problem-content">
+              <h3>Parasites et irritations</h3>
+              <p>La lotion antiparasitaire et répulsive protège vos animaux efficacement, tout en respectant leur peau et plumage.</p>
+              <span class="problem-tag">Solution Pack Animalia</span>
+            </div>
+          </div>
+
+          <div class="problem-card">
+            <div class="problem-image">
+              <img src="images/chill-cat.jpg" alt="Pelage qui sent mauvais">
+            </div>
+            <div class="problem-content">
+              <h3>Pelage qui sent mauvais</h3>
+              <p>Le parfum doux et durable de Pack Animalia laisse un pelage frais et délicatement parfumé.</p>
+              <span class="problem-tag">Solution Pack Animalia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-16">
+          <a href="https://wa.me/212522508993" target="_blank" rel="noopener noreferrer" class="whatsapp-btn-large">
+            <i class="fab fa-whatsapp"></i>
+            Commander le Pack à 239 DH
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="contact-bg"></div>
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <h2>Contact & Commandes</h2>
+
+            <div class="contact-item">
+              <div class="icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h4>Adresse</h4>
+                <p>Ain Chouk, Casablanca, Maroc</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div>
+                <h4>Téléphone / WhatsApp</h4>
+                <p>0522 508993</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h4>Email</h4>
+                <p>animaliafamily10@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="https://www.instagram.com/animaliafamily10/" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://web.facebook.com/profile.php?id=61585176427252" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="mailto:animaliafamily10@gmail.com" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- How to Order -->
+          <div class="how-to-order">
+            <h3>Comment Commander</h3>
+            <div class="order-steps">
+              <div class="order-step">
+                <div class="number">1</div>
+                <p>Choisissez vos produits sur le site</p>
+              </div>
+              <div class="order-step">
+                <div class="number">2</div>
+                <p>Cliquez sur "Commander sur WhatsApp"</p>
+              </div>
+              <div class="order-step">
+                <div class="number">3</div>
+                <p>Envoyez-nous votre commande</p>
+              </div>
+              <div class="order-step">
+                <div class="number">4</div>
+                <p>Recevez vos produits à domicile</p>
+              </div>
+            </div>
+            <a href="https://wa.me/212522508993?text=Bonjour%20ANIMALIA%20Family,%20je%20souhaite%20commander%20des%20produits" target="_blank" rel="noopener noreferrer" class="order-btn">
+              <i class="fab fa-whatsapp"></i>
+              Commander sur WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© <script>document.write(new Date().getFullYear())</script> ANIMALIA Family — HERMANA COOP.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Image Gallery -->
+  <script>
+    const productImages = [
+      'images/Pack_Animalia_Family_bg.jpg',
+      'images/prod1.jpg',
+      'images/prod2.jpg',
+      'images/prod3.jpg'
+    ];
+
+    function changeImage(index, element) {
+      // Update main image
+      document.getElementById('mainImage').src = productImages[index];
+      
+      // Update active thumbnail
+      document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+  </script>
+</body>
+</html>
