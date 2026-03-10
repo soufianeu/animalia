@@ -111,7 +111,7 @@ header .container {
 
 /* Hero Section */
 .hero {
-  padding: 9rem 0 6rem;
+  padding: 7rem 0 3rem;
   position: relative;
 }
 
@@ -616,3 +616,16 @@ footer {
 }
 footer p { font-size: 0.95rem; font-weight: 500; }
 footer strong { color: white; }
+
+@media (max-width: 767px) {
+  .hero .grid { gap: 2rem; }
+  .product-info h1 { font-size: 2.5rem; line-height: 1.2; }
+  .price { font-size: 2rem; }
+  .product-card { padding: 1.5rem; gap: 1.5rem; }
+  .product-card h3 { font-size: 1.5rem; }
+  .benefits-section { padding: 4rem 0; }
+  .benefits-header h2 { font-size: 2rem; }
+  .problem-card .problem-image { height: 200px; }
+  .contact-info, .how-to-order { padding: 2rem; }
+  .contact-info h2, .how-to-order h3 { font-size: 1.5rem; }
+}
