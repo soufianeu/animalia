@@ -621,6 +621,7 @@
                   <i class="fas fa-shopping-cart"></i>
                   Commander
                 </button>
+                <p id="orderStatus" class="order-status" aria-live="polite"></p>
               </form>
 
               <div class="order-steps">
@@ -634,11 +635,11 @@
                 </div>
                 <div class="order-step">
                   <div class="number">3</div>
-                  <p>Votre client mail s’ouvre avec les infos prêtes</p>
+                  <p>La commande est envoyee automatiquement</p>
                 </div>
                 <div class="order-step">
                   <div class="number">4</div>
-                  <p>Envoyez l’e-mail à hermana.cosmetics@gmail.com</p>
+                  <p>Nous la recevons a hermana.cosmetics@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -680,34 +681,72 @@
         element.classList.add("active");
       }
 
-      document
-        .getElementById("orderForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
+      const ORDER_RECIPIENT = "hermana.cosmetics@gmail.com";
+      const ORDER_SUBMIT_URL = `https://formsubmit.co/ajax/${ORDER_RECIPIENT}`;
+      const orderForm = document.getElementById("orderForm");
+      const orderStatus = document.getElementById("orderStatus");
+      const productInput = document.getElementById("product");
 
-          const fullName = document.getElementById("fullName").value.trim();
-          const address = document.getElementById("address").value.trim();
-          const phone = document.getElementById("phone").value.trim();
-          const product = document.getElementById("product").value;
-          const message = document.getElementById("message").value.trim();
+      orderForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-          if (!fullName || !address || !phone) {
-            alert("Veuillez remplir tous les champs requis.");
-            return;
+        const fullName = document.getElementById("fullName").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const product = productInput.value;
+        const message = document.getElementById("message").value.trim();
+
+        if (!fullName || !address || !phone) {
+          alert("Veuillez remplir tous les champs requis.");
+          return;
+        }
+
+        const submitButton = orderForm.querySelector("button[type='submit']");
+        const initialButtonHtml = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+        orderStatus.textContent = "";
+
+        try {
+          const response = await fetch(ORDER_SUBMIT_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              _subject: "Nouvelle commande ANIMALIA",
+              nom_complet: fullName,
+              adresse_livraison: address,
+              telephone: phone,
+              produit: product,
+              message: message || "Aucun",
+            }),
+          });
+
+          const result = await response.json();
+
+          if (!response.ok || (result.success !== "true" && result.success !== true)) {
+            throw new Error("Order submit failed");
           }
 
-          const subject = "Nouvelle commande ANIMALIA";
-          let body = `Nom complet: ${fullName}\n`;
-          body += `Adresse: ${address}\n`;
-          body += `Téléphone: ${phone}\n`;
-          body += `Produit: ${product}\n`;
-          if (message) {
-            body += `Message: ${message}\n`;
-          }
-
-          const mailtoLink = `mailto:hermana.cosmetics@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-          window.location.href = mailtoLink;
-        });
+          orderForm.reset();
+          productInput.value = "Pack Animalia Family - 199 dh";
+          orderStatus.textContent =
+            "Commande envoyee. Vous serez contacte prochainement.";
+          orderStatus.classList.remove("error");
+          orderStatus.classList.add("success");
+        } catch (error) {
+          orderStatus.textContent =
+            "Echec de l'envoi. Veuillez reessayer ou contacter le support.";
+          orderStatus.classList.remove("success");
+          orderStatus.classList.add("error");
+        } finally {
+          submitButton.disabled = false;
+          submitButton.innerHTML = initialButtonHtml;
+        }
+      });
     </script>
   </body>
 </html>

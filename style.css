@@ -839,6 +839,12 @@ header .container {
   transform: translateY(-3px);
   box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
 }
+.order-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+}
 
 .order-btn-large,
 .whatsapp-btn-large {
@@ -888,6 +894,18 @@ header .container {
 .order-form textarea {
   min-height: 90px;
   resize: vertical;
+}
+
+.order-status {
+  min-height: 1.3rem;
+  margin-top: 0.15rem;
+  font-weight: 600;
+}
+.order-status.success {
+  color: #0f8f45;
+}
+.order-status.error {
+  color: #bf2f2f;
 }
 
 .center-btn {
