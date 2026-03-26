@@ -58,7 +58,7 @@ The page loads these from CDN:
 ## 📞 Contact
 
 - **WhatsApp**: +212 522 508993
-- **Email**: animaliafamily10@gmail.com
+- **Email**: hermanacosmetics1@gmail.com
 - **Location**: Ain Chouk, Casablanca, Maroc
 
 ---
