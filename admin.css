@@ -31,6 +31,11 @@
   padding: 2rem 0 3rem;
 }
 
+.login-card {
+  max-width: 34rem;
+  margin: 2rem auto;
+}
+
 .admin-card {
   background: #ffffff;
   border: 1px solid rgba(15, 81, 50, 0.08);
@@ -49,6 +54,30 @@
 .subtitle {
   color: #5d6b61;
   margin: 0.35rem 0 1rem;
+}
+
+.login-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #1c1f23;
+  gap: 0.4rem;
+}
+
+.login-form input {
+  border: 1px solid rgba(28, 31, 35, 0.2);
+  border-radius: 0.55rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 1rem;
+}
+
+.dashboard-shell[hidden] {
+  display: none;
 }
 
 .auth-grid,
@@ -98,6 +127,11 @@
   background: #0f5132;
   color: #ffffff;
   border-color: #0f5132;
+}
+
+.admin-btn.danger {
+  border-color: rgba(184, 47, 47, 0.25);
+  color: #b82f2f;
 }
 
 .dashboard-status {

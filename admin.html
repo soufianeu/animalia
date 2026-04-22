@@ -29,96 +29,105 @@
 
     <main class="admin-main">
       <div class="container">
-        <section class="admin-card">
-          <h1>Dashboard commandes</h1>
+        <section id="loginCard" class="admin-card login-card">
+          <h1>Acces Admin</h1>
           <p class="subtitle">
-            Suivi des commandes en temps reel. Connectez votre token admin pour
-            charger les donnees.
+            Cette page est protegee. Entrez la cle secrete pour ouvrir le dashboard.
           </p>
 
-          <div class="auth-grid">
-            <label>
-              API URL
-              <input id="apiUrl" type="text" readonly />
-            </label>
-            <label>
-              Token admin
-              <input
-                id="adminToken"
-                type="password"
-                placeholder="Entrez votre x-admin-token"
-              />
-            </label>
-          </div>
-
-          <div class="auth-actions">
-            <button id="connectBtn" class="admin-btn primary">Connecter</button>
-            <button id="refreshBtn" class="admin-btn">Rafraichir</button>
-            <p id="dashboardStatus" class="dashboard-status" aria-live="polite"></p>
-          </div>
+          <form id="loginForm" class="login-form" autocomplete="off">
+            <label for="adminTokenInput">Cle secrete</label>
+            <input
+              id="adminTokenInput"
+              type="password"
+              placeholder="Entrez votre cle secrete"
+              required
+            />
+            <button id="loginBtn" type="submit" class="admin-btn primary">
+              Se connecter
+            </button>
+          </form>
+          <p id="loginStatus" class="dashboard-status" aria-live="polite"></p>
         </section>
 
-        <section class="admin-card">
-          <div class="controls-grid">
-            <label>
-              Recherche
-              <input
-                id="searchInput"
-                type="text"
-                placeholder="Nom, telephone, adresse"
-              />
-            </label>
+        <div id="dashboardShell" class="dashboard-shell" hidden>
+          <section class="admin-card">
+            <h1>Dashboard commandes</h1>
+            <p class="subtitle">Suivi des commandes en temps reel.</p>
 
-            <label>
-              Statut
-              <select id="statusFilter">
-                <option value="">Tous</option>
-                <option value="new">Nouveau</option>
-                <option value="confirmed">Confirme</option>
-                <option value="shipped">Expedie</option>
-                <option value="delivered">Livre</option>
-                <option value="cancelled">Annule</option>
-              </select>
-            </label>
-          </div>
+            <div class="auth-actions">
+              <button id="refreshBtn" class="admin-btn">Rafraichir</button>
+              <button id="logoutBtn" class="admin-btn danger">Se deconnecter</button>
+              <p
+                id="dashboardStatus"
+                class="dashboard-status"
+                aria-live="polite"
+              ></p>
+            </div>
+          </section>
 
-          <div class="stats-grid">
-            <article class="stat-card">
-              <span>Total</span>
-              <strong id="statTotal">0</strong>
-            </article>
-            <article class="stat-card">
-              <span>Nouveaux</span>
-              <strong id="statNew">0</strong>
-            </article>
-            <article class="stat-card">
-              <span>Confirmes</span>
-              <strong id="statConfirmed">0</strong>
-            </article>
-            <article class="stat-card">
-              <span>Livres</span>
-              <strong id="statDelivered">0</strong>
-            </article>
-          </div>
+          <section class="admin-card">
+            <div class="controls-grid">
+              <label>
+                Recherche
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="Nom, telephone, adresse"
+                />
+              </label>
 
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Client</th>
-                  <th>Telephone</th>
-                  <th>Produit</th>
-                  <th>Statut</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody id="ordersTableBody"></tbody>
-            </table>
-          </div>
+              <label>
+                Statut
+                <select id="statusFilter">
+                  <option value="">Tous</option>
+                  <option value="new">Nouveau</option>
+                  <option value="confirmed">Confirme</option>
+                  <option value="shipped">Expedie</option>
+                  <option value="delivered">Livre</option>
+                  <option value="cancelled">Annule</option>
+                </select>
+              </label>
+            </div>
 
-          <p id="emptyState" class="empty-state">Aucune commande trouvee.</p>
-        </section>
+            <div class="stats-grid">
+              <article class="stat-card">
+                <span>Total</span>
+                <strong id="statTotal">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>Nouveaux</span>
+                <strong id="statNew">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>Confirmes</span>
+                <strong id="statConfirmed">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>Livres</span>
+                <strong id="statDelivered">0</strong>
+              </article>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Client</th>
+                    <th>Telephone</th>
+                    <th>Produit</th>
+                    <th>Statut</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody"></tbody>
+              </table>
+            </div>
+
+            <p id="emptyState" class="empty-state">Aucune commande trouvee.</p>
+          </section>
+        </div>
       </div>
     </main>
 

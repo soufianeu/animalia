@@ -1,5 +1,4 @@
 const API_BASE_URL = (window.__ANIMALIA_API_URL__ || "").trim().replace(/\/+$/, "");
-const TOKEN_STORAGE_KEY = "animalia_admin_token";
 
 const STATUS_ORDER = ["new", "confirmed", "shipped", "delivered", "cancelled"];
 const STATUS_LABELS = {
@@ -10,10 +9,15 @@ const STATUS_LABELS = {
   cancelled: "Annule",
 };
 
-const apiUrlInput = document.getElementById("apiUrl");
-const adminTokenInput = document.getElementById("adminToken");
-const connectBtn = document.getElementById("connectBtn");
+const loginCard = document.getElementById("loginCard");
+const loginForm = document.getElementById("loginForm");
+const adminTokenInput = document.getElementById("adminTokenInput");
+const loginBtn = document.getElementById("loginBtn");
+const loginStatus = document.getElementById("loginStatus");
+
+const dashboardShell = document.getElementById("dashboardShell");
 const refreshBtn = document.getElementById("refreshBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 const dashboardStatus = document.getElementById("dashboardStatus");
 const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
@@ -37,12 +41,26 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
-function setDashboardStatus(message, type) {
-  dashboardStatus.textContent = message;
-  dashboardStatus.classList.remove("success", "error");
-  if (type) {
-    dashboardStatus.classList.add(type);
+function setStatus(element, message, type) {
+  if (!element) {
+    return;
   }
+
+  element.textContent = message;
+  element.classList.remove("success", "error");
+  if (type) {
+    element.classList.add(type);
+  }
+}
+
+function showLogin() {
+  loginCard.hidden = false;
+  dashboardShell.hidden = true;
+}
+
+function showDashboard() {
+  loginCard.hidden = true;
+  dashboardShell.hidden = false;
 }
 
 function normalizeStatus(status) {
@@ -140,13 +158,18 @@ function renderOrders() {
     .join("");
 }
 
+function clearSession() {
+  adminToken = "";
+  orders = [];
+}
+
 async function apiRequest(path, method, body) {
   if (!API_BASE_URL) {
     throw new Error("API URL not configured. Edit config.js first.");
   }
 
   if (!adminToken) {
-    throw new Error("Admin token is required.");
+    throw new Error("Secret key is required.");
   }
 
   const headers = {
@@ -174,26 +197,70 @@ async function apiRequest(path, method, body) {
   return payload;
 }
 
-async function fetchOrders() {
-  if (!adminToken) {
-    setDashboardStatus("Entrez un token admin pour continuer.", "error");
-    return;
+async function loginWithToken(token, options = {}) {
+  const { silent = false } = options;
+  const trimmedToken = token.trim();
+
+  if (!trimmedToken) {
+    setStatus(loginStatus, "Entrez votre cle secrete.", "error");
+    return false;
   }
 
-  setDashboardStatus("Chargement des commandes...", "");
-  connectBtn.disabled = true;
-  refreshBtn.disabled = true;
+  adminToken = trimmedToken;
+  loginBtn.disabled = true;
+  setStatus(loginStatus, "Verification de la cle secrete...", "");
 
   try {
     const payload = await apiRequest("/orders", "GET");
     orders = Array.isArray(payload.orders) ? payload.orders : [];
     renderOrders();
-    setDashboardStatus(`Commandes chargees: ${orders.length}.`, "success");
+    showDashboard();
+    setStatus(dashboardStatus, `Commandes chargees: ${orders.length}.`, "success");
+
+    if (!silent) {
+      setStatus(loginStatus, "", "");
+    }
+    return true;
   } catch (error) {
-    setDashboardStatus(error.message, "error");
+    clearSession();
+    renderOrders();
+    showLogin();
+    setStatus(loginStatus, error.message || "Cle secrete invalide.", "error");
+    return false;
   } finally {
-    connectBtn.disabled = false;
+    loginBtn.disabled = false;
+  }
+}
+
+async function fetchOrders() {
+  if (!adminToken) {
+    showLogin();
+    setStatus(loginStatus, "Entrez votre cle secrete.", "error");
+    return;
+  }
+
+  setStatus(dashboardStatus, "Chargement des commandes...", "");
+  refreshBtn.disabled = true;
+  logoutBtn.disabled = true;
+
+  try {
+    const payload = await apiRequest("/orders", "GET");
+    orders = Array.isArray(payload.orders) ? payload.orders : [];
+    renderOrders();
+    setStatus(dashboardStatus, `Commandes chargees: ${orders.length}.`, "success");
+  } catch (error) {
+    const message = error.message || "Request failed.";
+    setStatus(dashboardStatus, message, "error");
+
+    if (message.toLowerCase().includes("unauthorized")) {
+      clearSession();
+      renderOrders();
+      showLogin();
+      setStatus(loginStatus, "Session expiree. Entrez la cle secrete.", "error");
+    }
+  } finally {
     refreshBtn.disabled = false;
+    logoutBtn.disabled = false;
   }
 }
 
@@ -218,24 +285,31 @@ async function updateOrderStatus(orderId, nextStatus, selectElement) {
     });
 
     renderOrders();
-    setDashboardStatus("Statut mis a jour.", "success");
+    setStatus(dashboardStatus, "Statut mis a jour.", "success");
   } catch (error) {
     selectElement.value = previousStatus;
-    setDashboardStatus(error.message, "error");
+    setStatus(dashboardStatus, error.message || "Request failed.", "error");
   } finally {
     selectElement.disabled = false;
   }
 }
 
-connectBtn.addEventListener("click", () => {
-  adminToken = adminTokenInput.value.trim();
-  localStorage.setItem(TOKEN_STORAGE_KEY, adminToken);
-  fetchOrders();
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  loginWithToken(adminTokenInput.value);
 });
 
 refreshBtn.addEventListener("click", () => {
-  adminToken = adminTokenInput.value.trim();
   fetchOrders();
+});
+
+logoutBtn.addEventListener("click", () => {
+  clearSession();
+  adminTokenInput.value = "";
+  renderOrders();
+  showLogin();
+  setStatus(dashboardStatus, "", "");
+  setStatus(loginStatus, "Session fermee.", "success");
 });
 
 searchInput.addEventListener("input", renderOrders);
@@ -253,24 +327,17 @@ ordersTableBody.addEventListener("change", (event) => {
 });
 
 function init() {
-  apiUrlInput.value = API_BASE_URL || "Not configured in config.js";
-  adminToken = localStorage.getItem(TOKEN_STORAGE_KEY) || "";
-  adminTokenInput.value = adminToken;
+  renderOrders();
 
   if (!API_BASE_URL) {
-    connectBtn.disabled = true;
-    refreshBtn.disabled = true;
-    setDashboardStatus("Set window.__ANIMALIA_API_URL__ in config.js.", "error");
-    renderOrders();
+    loginBtn.disabled = true;
+    showLogin();
+    setStatus(loginStatus, "API URL not configured. Edit config.js first.", "error");
     return;
   }
 
-  renderOrders();
-  if (adminToken) {
-    fetchOrders();
-  } else {
-    setDashboardStatus("Entrez votre token admin, puis cliquez Connecter.", "");
-  }
+  showLogin();
+  setStatus(loginStatus, "Entrez la cle secrete pour acceder au dashboard.", "");
 }
 
 init();
