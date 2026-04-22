@@ -103,6 +103,23 @@ header .container {
   transform: rotate(-5deg) scale(1.05);
 }
 
+.admin-link {
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--primary);
+  border: 1px solid rgba(15, 81, 50, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  transition: var(--transition);
+}
+
+.admin-link:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
 .whatsapp-btn {
   display: inline-flex;
   align-items: center;

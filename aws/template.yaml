@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Animalia low-cost orders API (API Gateway + Lambda + DynamoDB).
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Timeout: 10
+    MemorySize: 256
+
+Parameters:
+  AllowedOrigin:
+    Type: String
+    Default: "*"
+    Description: Allowed CORS origin for frontend requests.
+  AdminToken:
+    Type: String
+    NoEcho: true
+    Description: Shared token required by admin dashboard requests.
+
+Resources:
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      TableName: !Sub "${AWS::StackName}-orders"
+
+  OrdersApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref AllowedOrigin
+        AllowHeaders:
+          - content-type
+          - x-admin-token
+        AllowMethods:
+          - OPTIONS
+          - GET
+          - POST
+          - PATCH
+
+  OrdersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda/
+      Handler: orders.lambda_handler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref OrdersTable
+          ADMIN_TOKEN: !Ref AdminToken
+          ALLOWED_ORIGIN: !Ref AllowedOrigin
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable
+      Events:
+        CreateOrder:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref OrdersApi
+            Path: /orders
+            Method: POST
+        ListOrders:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref OrdersApi
+            Path: /orders
+            Method: GET
+        UpdateOrder:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref OrdersApi
+            Path: /orders/{orderId}
+            Method: PATCH
+
+Outputs:
+  ApiUrl:
+    Description: Base URL for the HTTP API.
+    Value: !Sub "https://${OrdersApi}.execute-api.${AWS::Region}.amazonaws.com"
+  OrdersTableName:
+    Description: DynamoDB orders table name.
+    Value: !Ref OrdersTable

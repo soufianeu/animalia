@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANIMALIA Dashboard | Commandes</title>
+    <link rel="icon" href="images/logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-body">
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <a href="index.html" class="logo">
+          <img src="images/logo.png" alt="Animalia" />
+          <span>ANIMALIA</span>
+        </a>
+        <a href="index.html#order" class="admin-home-link">Page Commande</a>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="container">
+        <section class="admin-card">
+          <h1>Dashboard commandes</h1>
+          <p class="subtitle">
+            Suivi des commandes en temps reel. Connectez votre token admin pour
+            charger les donnees.
+          </p>
+
+          <div class="auth-grid">
+            <label>
+              API URL
+              <input id="apiUrl" type="text" readonly />
+            </label>
+            <label>
+              Token admin
+              <input
+                id="adminToken"
+                type="password"
+                placeholder="Entrez votre x-admin-token"
+              />
+            </label>
+          </div>
+
+          <div class="auth-actions">
+            <button id="connectBtn" class="admin-btn primary">Connecter</button>
+            <button id="refreshBtn" class="admin-btn">Rafraichir</button>
+            <p id="dashboardStatus" class="dashboard-status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section class="admin-card">
+          <div class="controls-grid">
+            <label>
+              Recherche
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="Nom, telephone, adresse"
+              />
+            </label>
+
+            <label>
+              Statut
+              <select id="statusFilter">
+                <option value="">Tous</option>
+                <option value="new">Nouveau</option>
+                <option value="confirmed">Confirme</option>
+                <option value="shipped">Expedie</option>
+                <option value="delivered">Livre</option>
+                <option value="cancelled">Annule</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span>Total</span>
+              <strong id="statTotal">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Nouveaux</span>
+              <strong id="statNew">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Confirmes</span>
+              <strong id="statConfirmed">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Livres</span>
+              <strong id="statDelivered">0</strong>
+            </article>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Client</th>
+                  <th>Telephone</th>
+                  <th>Produit</th>
+                  <th>Statut</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
+
+          <p id="emptyState" class="empty-state">Aucune commande trouvee.</p>
+        </section>
+      </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

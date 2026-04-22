@@ -60,6 +60,7 @@
           <img src="images/logo.png" alt="Animalia" />
           <span>ANIMALIA</span>
         </a>
+        <a href="admin.html" class="admin-link">Dashboard</a>
       </div>
     </header>
 
@@ -684,7 +685,9 @@
       </div>
     </footer>
 
-    <!-- JavaScript for Image Gallery and Email Order -->
+    <script src="config.js"></script>
+
+    <!-- JavaScript for Image Gallery and Order -->
     <script>
       const productImages = [
         "images/Pack_Animalia_Family_bg.jpg",
@@ -704,8 +707,14 @@
         element.classList.add("active");
       }
 
+      const API_BASE_URL = (window.__ANIMALIA_API_URL__ || "")
+        .trim()
+        .replace(/\/+$/, "");
+      const USING_AWS_API = Boolean(API_BASE_URL);
       const ORDER_RECIPIENT = "hermanacosmetics1@gmail.com";
-      const ORDER_SUBMIT_URL = `https://formsubmit.co/ajax/${ORDER_RECIPIENT}`;
+      const ORDER_SUBMIT_URL = USING_AWS_API
+        ? `${API_BASE_URL}/orders`
+        : `https://formsubmit.co/ajax/${ORDER_RECIPIENT}`;
       const orderForm = document.getElementById("orderForm");
       const orderStatus = document.getElementById("orderStatus");
       const productInput = document.getElementById("product");
@@ -738,19 +747,34 @@
               "Content-Type": "application/json",
               Accept: "application/json",
             },
-            body: JSON.stringify({
-              _subject: "Nouvelle commande ANIMALIA",
-              nom_complet: fullName,
-              adresse_livraison: address,
-              telephone: phone,
-              produit: product,
-              message: message || "Aucun",
-            }),
+            body: JSON.stringify(
+              USING_AWS_API
+                ? {
+                    fullName,
+                    address,
+                    phone,
+                    product,
+                    message: message || "",
+                  }
+                : {
+                    _subject: "Nouvelle commande ANIMALIA",
+                    nom_complet: fullName,
+                    adresse_livraison: address,
+                    telephone: phone,
+                    produit: product,
+                    message: message || "Aucun",
+                  }
+            ),
           });
 
-          const result = await response.json();
+          const result = await response.json().catch(() => ({}));
 
-          if (!response.ok || (result.success !== "true" && result.success !== true)) {
+          if (
+            !response.ok ||
+            (!USING_AWS_API &&
+              result.success !== "true" &&
+              result.success !== true)
+          ) {
             throw new Error("Order submit failed");
           }
 

@@ -1,66 +1,87 @@
-# ANIMALIA Landing Page
+# ANIMALIA Landing + Orders Dashboard
 
-A beautiful, responsive landing page for ANIMALIA - Premium Pet Care Products from Morocco.
+This project now includes:
+- A public landing page with order form: `index.html`
+- An admin dashboard to view/update orders: `admin.html`
+- A low-cost AWS backend (API Gateway + Lambda + DynamoDB): `aws/`
 
-## 📁 Project Structure
+## Project Structure
 
+```text
+animalia-main/
+|-- index.html
+|-- admin.html
+|-- style.css
+|-- admin.css
+|-- admin.js
+|-- config.js
+|-- images/
+`-- aws/
+    |-- template.yaml
+    `-- lambda/
+        `-- orders.py
 ```
-animalia-landing/
-├── index.html          # Main HTML file with embedded CSS & JavaScript
-├── images/             # All product and UI images
-│   ├── logo.png
-│   ├── Pack_Animalia_Family_bg.jpg
-│   ├── prod1.jpg
-│   ├── prod2.jpg
-│   ├── prod3.jpg
-│   ├── prod1i.jpg
-│   ├── prod2i.jpg
-│   ├── prod3i.jpg
-│   ├── cat-with-shampoo-cleaning.jpg
-│   ├── angry-cat.jpg
-│   ├── chill-cat.jpg
-│   └── contact-bg.jpg
-└── README.md           # This file
+
+## Local Usage
+
+1. Open `index.html` for the customer order page.
+2. Open `admin.html` for the dashboard page.
+3. Set `window.__ANIMALIA_API_URL__` in `config.js` after deploying the AWS API.
+
+## Deploy Backend (Cheapest Serverless Stack)
+
+Prerequisites:
+- AWS CLI configured
+- AWS SAM CLI installed
+
+Deploy:
+
+```bash
+cd aws
+sam build
+sam deploy --guided
 ```
 
-## 🚀 How to Use
+During `sam deploy --guided`:
+- Set `AllowedOrigin` to your website origin (or `*` for testing).
+- Set a strong `AdminToken` (you will use it in `admin.html`).
 
-1. **Download and extract** the ZIP file
-2. **Open `index.html`** in any modern web browser
-3. That's it! No server required - works offline!
+After deploy, copy output `ApiUrl`.
 
-## ✨ Features
+Then edit `config.js`:
 
-- ✅ Fully responsive design (mobile, tablet, desktop)
-- ✅ Interactive image gallery with thumbnail navigation
-- ✅ WhatsApp integration for ordering
-- ✅ Smooth scroll animations
-- ✅ Hover effects and transitions
-- ✅ All images included locally
-- ✅ No dependencies - single HTML file
+```js
+window.__ANIMALIA_API_URL__ = "https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com";
+```
 
-## 📱 Sections
+## Deploy Frontend (Static)
 
-1. **Header** - Logo and WhatsApp order button
-2. **Hero** - Product gallery, pricing, and description
-3. **Pack Components** - Details of each product in the pack
-4. **Benefits** - 6 feature cards
-5. **Solutions** - Problem/solution cards with images
-6. **Contact** - Contact info and ordering instructions
-7. **Footer** - Copyright
+### Option A: Lowest setup cost (S3 static website endpoint, no HTTPS)
 
-## 🌐 External Resources
+```bash
+aws s3 mb s3://your-bucket-name --region us-east-1
+aws s3 website s3://your-bucket-name --index-document index.html
+aws s3 sync . s3://your-bucket-name --exclude "aws/*" --delete
+```
 
-The page loads these from CDN:
-- Font Awesome 6.4.0 (icons)
-- Google Fonts (Poppins & Montserrat)
+### Option B: Production-friendly (S3 + CloudFront, HTTPS)
 
-## 📞 Contact
+Use an S3 bucket as origin and put CloudFront in front of it.
+This is still low cost and usually the best production choice.
 
-- **WhatsApp**: +212 522 508993
-- **Email**: hermanacosmetics1@gmail.com
-- **Location**: Ain Chouk, Casablanca, Maroc
+## Automatic Deploy from GitHub
 
----
+This repo includes:
+- `.github/workflows/deploy-aws.yml`
 
-© 2025 ANIMALIA Family — HERMANA COOP.
+On each push to `main`, it deploys backend + frontend automatically.
+
+Setup guide:
+- `aws/github-oidc-setup.md`
+
+## Dashboard Access
+
+- Open `admin.html`
+- Paste your admin token
+- Click `Connecter`
+- You can search/filter orders and change status
